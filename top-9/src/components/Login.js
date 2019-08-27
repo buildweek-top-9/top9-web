@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { Form, Field, withFormik } from "formik";
-import * as Yup from "yup";
 import axios from "axios";
-
+import { Route, Link, Switch } from "react-router-dom";
 import styled from "styled-components"
+import Register from "./Register.js"
 
 const StyledHeader = styled.h1`
   color: white
@@ -57,16 +56,7 @@ const StyledLoginLink = styled.a`
   text-decoration: none;
 `
 
-const Login = ({ errors, touched, status }) => {
-  
-  const [users, setUsers] = useState([])
-  console.log(users);
-
-  useEffect (() => {
-    if (status) {
-      setUsers([...users, status])
-    }
-  }, [status])
+const Login = () => {
 
   return (
     <div className="LoginPage">
@@ -80,9 +70,6 @@ const Login = ({ errors, touched, status }) => {
             name="email" 
             placeholder="  Enter Email Here" 
           />
-          {touched.email && errors.email && (
-            <p>{errors.email}</p>
-          )}
           <StyledLabel>CREATE A PASSWORD</StyledLabel>
           <StyledInput 
             component="input" 
@@ -90,42 +77,13 @@ const Login = ({ errors, touched, status }) => {
             name="password" 
             placeholder="  Enter Password Here"
           />
-          {touched.password && errors.password && (
-            <p>{errors.password}</p>
-          )}
           <StyledButton>LOG IN</StyledButton>
         </StyledForm>
-        {users.map(user => (
-          <p key={user.id}>{user.name}</p>
-        ))}
-      </LoginForm>    
+        New to MyTop9?
+        <Link to ="/register"> Register</Link>
+      </LoginForm>
     </div>
   )
 }
 
-const formikHOC = withFormik({
-  mapPropsToValues({ email, password }) {
-    return {
-      email: email || "",
-      password: password || "",
-    }
-  },
-  validationSchema: Yup.object().shape({
-    email: Yup.string().required("invalid email"),
-    password: Yup.string().required("must create a password")
-  }),
-  handleSubmit(values, { setStatus, resetForm }) {
-    axios
-      .post("https://reqres.in/api/users", values)
-      .then(res => {
-        setStatus(res.data);
-        resetForm();
-      })
-      .catch(err => console.error(err));
-  }
-
-})
-
-const LoginWithFormik = formikHOC(Login)
-
-export default LoginWithFormik; 
+export default Login;

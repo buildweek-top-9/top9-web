@@ -3,15 +3,17 @@ import "./App.css";
 import NavBar from "./components/NavBar.js";
 import Register from "./components/Register.js";
 import Login from "./components/Login.js";
+import { Route, Switch } from "react-router-dom";
 
 
 
 function App() {
   return (
     <main>
-      <NavBar />
-      <Register />
-      <Login />
+      <Switch>
+        <Route exact path ="/register" component={Register} />
+        <Route exact path="/login" component={Login} />
+      </Switch>    
     </main>
   );
 }

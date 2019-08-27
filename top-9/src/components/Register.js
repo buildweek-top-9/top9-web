@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { Form, Field, withFormik } from "formik";
-import * as Yup from "yup";
 import axios from "axios";
+import { Route, Link, Switch } from "react-router-dom";
+import Login from "./Login.js"
 
 import styled from "styled-components"
 
@@ -12,7 +12,6 @@ const StyledHeader = styled.h1`
 const StyledRegister = styled.h2`
   color: #7150FF;
 `
-
 const RegisterForm = styled.div`
   height: 350px;
   width: 300px;
@@ -47,30 +46,7 @@ const StyledLabel = styled.label`
   margin-top: 5px;
 `
 
-const StyledPTag = styled.p`
-  font-size: 12px
-`
-
-const StyledSpan = styled.span`
-  color: #7150FF;
-  font-weight: bold;
-  font-size: 12px;
-`
-const StyledLoginLink = styled.a`
-  text-decoration: none;
-`
-
-const Register = ({ errors, touched, status }) => {
-  
-  const [users, setUsers] = useState([])
-  console.log(users);
-
-  useEffect (() => {
-    if (status) {
-      setUsers([...users, status])
-    }
-  }, [status])
-
+const Register = () => {
   return (
     <div className="RegisterPage">
       <StyledHeader>Welcome to MyTop9!</StyledHeader>
@@ -85,9 +61,6 @@ const Register = ({ errors, touched, status }) => {
             name="name" 
             placeholder="  First Name Last Name" 
           />
-          {touched.name && errors.name && (
-            <p>{errors.name}</p>
-          )}
           <StyledLabel>E-MAIL ADDRESS</StyledLabel>  
           <StyledInput 
             component="input" 
@@ -95,9 +68,6 @@ const Register = ({ errors, touched, status }) => {
             name="email" 
             placeholder="  Enter Email Here" 
           />
-          {touched.email && errors.email && (
-            <p>{errors.email}</p>
-          )}
           <StyledLabel>CREATE A PASSWORD</StyledLabel>
           <StyledInput 
             component="input" 
@@ -105,51 +75,13 @@ const Register = ({ errors, touched, status }) => {
             name="password" 
             placeholder="  Enter Password Here"
           />
-          {touched.password && errors.password && (
-            <p>{errors.password}</p>
-          )}
           <StyledButton>create account</StyledButton>
         </StyledForm>
-        <StyledPTag>
-          Already a Top-Niner?
-          <StyledSpan>
-            <StyledLoginLink href="#"> {" LOGIN"} </StyledLoginLink>
-          </StyledSpan>
-        </StyledPTag>
-        {users.map(user => (
-          <p key={user.id}>{user.name}</p>
-        ))}
-      </RegisterForm>    
+        Already a Top-Niner?
+        <Link to="/login"> LOGIN </ Link>
+      </RegisterForm>
     </div>
   )
 }
 
-const formikHOC = withFormik({
-  mapPropsToValues({ name, email, password, terms }) {
-    return {
-      name: name || "",
-      email: email || "",
-      password: password || "",
-      terms: terms || false
-    }
-  },
-  validationSchema: Yup.object().shape({
-    name: Yup.string().required("must enter a name"),
-    email: Yup.string().required("invalid email"),
-    password: Yup.string().required("must create a password")
-  }),
-  handleSubmit(values, { setStatus, resetForm }) {
-    axios
-      .post("https://reqres.in/api/users", values)
-      .then(res => {
-        setStatus(res.data);
-        resetForm();
-      })
-      .catch(err => console.error(err));
-  }
-
-})
-
-const RegisterWithFormik = formikHOC(Register)
-
-export default RegisterWithFormik; 
+export default Register;
