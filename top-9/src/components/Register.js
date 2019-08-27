@@ -9,9 +9,12 @@ const StyledHeader = styled.h1`
   color: white
  text-align: center;
 `
+const StyledRegister = styled.h2`
+  color: #7150FF;
+`
 
-const LoginForm = styled.div`
-  height: 250px;
+const RegisterForm = styled.div`
+  height: 350px;
   width: 300px;
   background-color: white;
   margin: 0 auto;
@@ -57,7 +60,7 @@ const StyledLoginLink = styled.a`
   text-decoration: none;
 `
 
-const Login = ({ errors, touched, status }) => {
+const Register = ({ errors, touched, status }) => {
   
   const [users, setUsers] = useState([])
   console.log(users);
@@ -69,10 +72,22 @@ const Login = ({ errors, touched, status }) => {
   }, [status])
 
   return (
-    <div className="LoginPage">
-      <StyledHeader>Welcome Back to MyTop9!</StyledHeader>
-      <LoginForm className="loginForm">
+    <div className="RegisterPage">
+      <StyledHeader>Welcome to MyTop9!</StyledHeader>
+      <RegisterForm className="RegisterForm">
+        <StyledRegister>Register now!</StyledRegister>
         <StyledForm>
+          <StyledLabel>NAME</StyledLabel>
+          <StyledInput
+            title="name"
+            component="input" 
+            type="text" 
+            name="name" 
+            placeholder="  First Name Last Name" 
+          />
+          {touched.name && errors.name && (
+            <p>{errors.name}</p>
+          )}
           <StyledLabel>E-MAIL ADDRESS</StyledLabel>  
           <StyledInput 
             component="input" 
@@ -93,24 +108,33 @@ const Login = ({ errors, touched, status }) => {
           {touched.password && errors.password && (
             <p>{errors.password}</p>
           )}
-          <StyledButton>LOG IN</StyledButton>
+          <StyledButton>create account</StyledButton>
         </StyledForm>
+        <StyledPTag>
+          Already a Top-Niner?
+          <StyledSpan>
+            <StyledLoginLink href="#"> {" LOGIN"} </StyledLoginLink>
+          </StyledSpan>
+        </StyledPTag>
         {users.map(user => (
           <p key={user.id}>{user.name}</p>
         ))}
-      </LoginForm>    
+      </RegisterForm>    
     </div>
   )
 }
 
 const formikHOC = withFormik({
-  mapPropsToValues({ email, password }) {
+  mapPropsToValues({ name, email, password, terms }) {
     return {
+      name: name || "",
       email: email || "",
       password: password || "",
+      terms: terms || false
     }
   },
   validationSchema: Yup.object().shape({
+    name: Yup.string().required("must enter a name"),
     email: Yup.string().required("invalid email"),
     password: Yup.string().required("must create a password")
   }),
@@ -126,6 +150,6 @@ const formikHOC = withFormik({
 
 })
 
-const LoginWithFormik = formikHOC(Login)
+const RegisterWithFormik = formikHOC(Register)
 
-export default LoginWithFormik; 
+export default RegisterWithFormik; 
