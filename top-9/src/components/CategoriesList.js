@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import axios from "axios";
 import Header from "./Header.js";
+import CategoriesCard from "./CategoriesCard";
 
 import styled from 'styled-components'
 
 export default function CategoriesList() {
-    // TODO: Add useState to track data from useEffect
     const [catList, setCatList] = useState([]);
   
     useEffect(() => {
@@ -25,7 +25,7 @@ export default function CategoriesList() {
         <Header />
         <section className="category-list grid-view">
           {catList.map(cat => {
-            return <CatCard cat={cat} key={cat.id} />;
+            return <CategoriesCard cat={cat} key={cat.id} />;
           })}
         </section>
       </>
