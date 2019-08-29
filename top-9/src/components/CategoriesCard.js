@@ -1,5 +1,5 @@
 import React from "react";
-import { css } from "emotion";
+import { css } from "@emotion/core";
 
 export default function CategoriesCard(props) {
   const cat = props.cat;
