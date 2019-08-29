@@ -1,89 +1,111 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
+import { Button, Form, Input } from 'semantic-ui-react';
+import { Link } from "react-router-dom";
 import axios from "axios";
-import { Route, Link, Switch } from "react-router-dom";
 import styled from "styled-components"
-import Register from "./Register.js"
+
+const StyledPage = styled.div`
+  text-align: center;
+`
 
 const StyledHeader = styled.h1`
-  color: white
- text-align: center;
-`
-
-const LoginForm = styled.div`
-  height: 250px;
-  width: 300px;
-  background-color: white;
-  margin: 0 auto;
-  border-radius: 15px;
-  text-align: center;
-  padding-top: 25px;
-  box-shadow: 0 8px 6px -6px black;
-`
-const StyledForm = styled.form`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-
-`
-const StyledInput = styled.input`
-  border-radius: 3px;
-  width: 70%
-  height: 25px;
-  margin-bottom: 15px;
-  border: 1px solid black;
-`
-const StyledButton = styled.button`
-  width: 70%;
-  border: 4px solid #7150FF;
-  font-size: 20px;
+  color: white;
 `
 const StyledLabel = styled.label`
-  font-size: 12px;
+  font-size: 14px;
+  font-weight: 900;
   color: #A86FEB;
-  margin-top: 5px;
+  margin-bottom: 5px;
 `
-
-const StyledPTag = styled.p`
-  font-size: 12px
-`
-
-const StyledSpan = styled.span`
-  color: #7150FF;
+const StyledButton = styled.button`
+  width: 150px;
+  color: white;
+  background-color: #7150FF;
+  border-radius: 3px;
+  height: 30px;
+  font-size: 14px;
   font-weight: bold;
-  font-size: 12px;
 `
-const StyledLoginLink = styled.a`
-  text-decoration: none;
+const StyledInput = styled.input`
+width: 175px;
+height: 25px;
+margin-bottom: 20px;
+border: 1px solid black;
+border-radius: 3px;
 `
 
-const Login = () => {
+const StyledSignIn = styled.h2`
+color: #7150FF;
+`
 
-  return (
-    <div className="LoginPage">
-      <StyledHeader>Welcome Back to MyTop9!</StyledHeader>
-      <LoginForm className="loginForm">
-        <StyledForm>
-          <StyledLabel>E-MAIL ADDRESS</StyledLabel>  
-          <StyledInput 
-            component="input" 
-            type="text" 
-            name="email" 
-            placeholder="  Enter Email Here" 
+export default function Login(props) {
+
+  const [user, setUser] = useState({email: "", password: ""});
+
+
+  const handleChange = event => {
+      setUser({ ...user, [event.target.name]: event.target.value });
+  };
+
+  const handleSubmit = event => {
+      event.preventDefault();
+      
+      axios
+      .post('https://salty-stream-78442.herokuapp.com/auth/login', user)
+      .then(res => {
+        console.log(res)
+        props.history.push("/dashboard")
+      })
+      .catch(err => {
+        console.error(err)
+        alert("E-mail address does not exist / password incorrect")
+      })
+      
+      setUser({
+          email: "", password: ""
+      })
+  };
+
+  return(
+    <StyledPage>
+      <StyledHeader>Welcome back to MyTop9!</StyledHeader>      
+      <Form onSubmit={handleSubmit}>
+        <Form.Group style={
+          {
+            backgroundColor:"white", 
+            maxHeight:"500px", 
+            width:"400px", 
+            margin:"0 auto", 
+            padding: "10px 0",
+            borderRadius: "15px",
+            boxShadow: "0 8px 6px -6px black"
+          }
+        }>
+          <StyledSignIn>Sign In</StyledSignIn>
+          <StyledLabel>Email</StyledLabel>
+          <Form.Field
+            control={StyledInput}
+            type="email"
+            name="email"
+            placeholder="  abc123@gmail.com"
+            value={user.email}
+            onChange={handleChange}
+            required
           />
-          <StyledLabel>CREATE A PASSWORD</StyledLabel>
-          <StyledInput 
-            component="input" 
-            type="password" 
-            name="password" 
-            placeholder="  Enter Password Here"
+          <StyledLabel>Password</StyledLabel>          
+          <Form.Field
+            control={StyledInput}
+            type="password"
+            name="password"
+            placeholder="  Enter password here"
+            value={user.password}
+            onChange={handleChange}
+            required
           />
-          <StyledButton>LOG IN</StyledButton>
-        </StyledForm>
-        New to MyTop9?
-        <Link to ="/register"> Register</Link>
-      </LoginForm>
-    </div>
+          <StyledButton>Login</StyledButton>
+          <p>No Account? <Link style={{textDecoration:"none", color:"#7150FF", fontWeight:"bold"}} to="/register">REGISTER</Link></p>          
+        </Form.Group>
+      </Form>
+    </StyledPage>
   )
 }
-
-export default Login;
