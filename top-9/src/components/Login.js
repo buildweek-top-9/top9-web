@@ -103,7 +103,7 @@ export default function Login(props) {
             required
           />
           <StyledButton>Login</StyledButton>
-          <p>No Account? <Link style={{textDecoration:"none", color:"#7150FF", fontWeight:"bold"}} to="/register">REGISTER</Link></p>          
+          <p>No Account? <Link style={{textDecoration:"none", color:"#7150FF", fontWeight:"bold"}} to="/">REGISTER</Link></p>          
         </Form.Group>
       </Form>
     </StyledPage>
