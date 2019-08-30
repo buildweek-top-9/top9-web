@@ -1,6 +1,7 @@
 import React from "react";
 import "./App.css";
 import Register from "./components/Register.js";
+import CatForm from "./components/CatForm";
 import Login from "./components/Login.js";
 import { Route, Switch } from "react-router-dom";
 
