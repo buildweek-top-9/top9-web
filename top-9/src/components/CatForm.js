@@ -49,13 +49,14 @@ const CatForm = props => {
   const submitForm = event => {
     event.preventDefault();
     const newCategory = {
-      ...Category,
+      ...category,
       id: Date.now()
     };
     props.addNewCategory(newCategory);
   };
 
   return (
+      <>
     <Header />
     <Form onSubmit={submitForm}>
       <StyledLabel htmlFor="title">Category Title</StyledLabel>
@@ -85,6 +86,7 @@ const CatForm = props => {
 
       <StyledButton type="submit">Add Category</StyledButton>
     </Form>
+    </>
   );
 };
 
