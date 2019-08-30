@@ -84,7 +84,7 @@ const CatForm = props => {
       />
 
       <StyledButton type="submit">Add Category</StyledButton>
-    </form>
+    </Form>
   );
 };
 
