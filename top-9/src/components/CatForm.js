@@ -1,5 +1,40 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import CatData from "./CatData";
+import styled from "styled-components";
+import { Button, Form, Input } from 'semantic-ui-react';
+import Header from "./Header";
+
+const StyledHeader = styled.h1`
+  color: white;
+`
+const StyledPage = styled.div`
+  text-align: center;
+`
+const StyledButton = styled.button`
+  width: 150px;
+  color: white;
+  background-color: #7150FF;
+  border-radius: 3px;
+  height: 30px;
+  font-size: 14px;
+  font-weight: bold;
+`
+const StyledInput = styled.input`
+width: 175px;
+height: 25px;
+margin-bottom: 20px;
+border: 1px solid black;
+border-radius: 3px;
+`
+const StyledLabel = styled.label`
+  font-size: 14px;
+  font-weight: 900;
+  color: #A86FEB;
+  margin-bottom: 5px;
+`
+
+
 
 const CatForm = props => {
   console.log(props);
@@ -21,17 +56,18 @@ const CatForm = props => {
   };
 
   return (
-    <form onSubmit={submitForm}>
-      <label htmlFor="title">Category Title</label>
-      <input
+    <Header />
+    <Form onSubmit={submitForm}>
+      <StyledLabel htmlFor="title">Category Title</StyledLabel>
+      <StyledInput
         type="text"
         name="title"
         placeholder="Category Title"
         value={category.title}
         onChange={changeHandler}
       />
-      <label htmlFor="image_url">Image URL</label>
-      <input
+      <StyledLabel htmlFor="image_url">Image URL</StyledLabel>
+      <StyledInput
         type="text"
         name="link"
         placeholder="paste url here..."
@@ -39,7 +75,7 @@ const CatForm = props => {
         onChange={changeHandler}
       />
 
-      <label htmlFor="body">Category Description</label>
+      <StyledLabel htmlFor="body">Category Description</StyledLabel>
       <textarea
         name="body"
         placeholder="Enter category description here..."
@@ -47,7 +83,7 @@ const CatForm = props => {
         onChange={changeHandler}
       />
 
-      <button type="submit">Add Category</button>
+      <StyledButton type="submit">Add Category</StyledButton>
     </form>
   );
 };
