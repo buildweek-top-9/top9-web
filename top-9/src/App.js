@@ -19,6 +19,7 @@ function App() {
         <Route path="/addpost" component={DTop9Add} />
       </Switch>
     </main>
+    
   );
 }
 
