@@ -27,15 +27,15 @@ const StyledButton = styled.button`
   font-weight: bold;
 `
 const StyledInput = styled.input`
-width: 175px;
-height: 25px;
-margin-bottom: 20px;
-border: 1px solid black;
-border-radius: 3px;
+  width: 175px;
+  height: 25px;
+  margin-bottom: 20px;
+  border: 1px solid black;
+  border-radius: 3px;
 `
 
 const StyledSignIn = styled.h2`
-color: #7150FF;
+  color: #7150FF;
 `
 
 export default function Login(props) {
@@ -51,10 +51,10 @@ export default function Login(props) {
       event.preventDefault();
       
       axios
-      .post('https://salty-stream-78442.herokuapp.com/auth/login', user)
+      .post('https://my-top-nine-0819.herokuapp.com/auth/login', user)
       .then(res => {
         console.log(res)
-        props.history.push("/dashboard")
+        props.history.push("/home")
       })
       .catch(err => {
         console.error(err)

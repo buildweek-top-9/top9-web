@@ -22,11 +22,11 @@ const StyledButton = styled.button`
   font-weight: bold;
 `
 const StyledInput = styled.input`
-width: 175px;
-height: 25px;
-margin-bottom: 20px;
-border: 1px solid black;
-border-radius: 3px;
+  width: 175px;
+  height: 25px;
+  margin-bottom: 20px;
+  border: 1px solid black;
+  border-radius: 3px;
 `
 const StyledLabel = styled.label`
   font-size: 14px;
@@ -49,12 +49,12 @@ export default function Register(props) {
       event.preventDefault();
       console.log("handleSubmit")
       axios
-      .post('https://salty-stream-78442.herokuapp.com/auth/register', user)
-      .then(res =>{
-        console.log(res)
-        props.history.push("/login")
-      })
-      .catch(err => console.error(err))
+        .post('https://my-top-nine-0819.herokuapp.com/auth/register', user)
+        .then(res =>{
+          console.log(res)
+          props.history.push("/login")
+        })
+        .catch(err => console.error(err))
       
       setUser({
           name: "", email: "", password: ""

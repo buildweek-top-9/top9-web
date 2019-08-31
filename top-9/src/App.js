@@ -1,9 +1,11 @@
 import React from "react";
 import "./App.css";
 import Register from "./components/Register.js";
-import CatForm from "./components/CatForm";
 import Login from "./components/Login.js";
 import { Route, Switch } from "react-router-dom";
+import Home from "./components/Home.js";
+import DTop9Add from "./components/DTop9Add.js"
+
 
 
 
@@ -13,8 +15,9 @@ function App() {
       <Switch>
         <Route exact path ="/" component={Register} />
         <Route exact path="/login" component={Login} />
-        <Route exact path="/dashboard" component={CatForm} />
-      </Switch>    
+        <Route path="/home" component={Home} />
+        <Route path="/addpost" component={DTop9Add} />
+      </Switch>
     </main>
     
   );
