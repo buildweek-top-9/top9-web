@@ -1,3 +1,4 @@
+/*
 const CatData = [
     {
       id: 001,
@@ -74,3 +75,4 @@ const CatData = [
   ];
   
   export default CatData;
+  */
