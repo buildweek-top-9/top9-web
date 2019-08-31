@@ -18,7 +18,7 @@ export default function DTop9List(props) {
   
   useEffect(() => {
     axios
-      .get(`https://my-top-nine-0819.herokuapp.com/users/4/top-nine`)
+      .get(`https://my-top-nine-0819.herokuapp.com/users/${localStorage.getItem("id")}/top-nine`)
       .then(res => {
         setSavedPosts(res.data);
         console.log("MY DATA", localStorage);
