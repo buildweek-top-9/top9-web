@@ -10,5 +10,8 @@ axios.interceptors.response.use(res => {
   if (res.data.token) {
     localStorage.setItem("token", res.data.token);
   }
+  if (res.data.id) {
+    localStorage.setItem("id", res.data.id);
+  }
   return res;
 });
